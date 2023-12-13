@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin">
+
+    <Button
+        android:id="@+id/createSampleData_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Create Sample Data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/exportCSV_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Export CSV"
+        app:layout_constraintEnd_toEndOf="@+id/createSampleData_btn"
+        app:layout_constraintStart_toStartOf="@+id/createSampleData_btn"
+        app:layout_constraintTop_toBottomOf="@+id/createSampleData_btn" />
+
+    <Button
+        android:id="@+id/deleteAll_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Delete All"
+        app:layout_constraintEnd_toEndOf="@+id/exportCSV_btn"
+        app:layout_constraintStart_toStartOf="@+id/exportCSV_btn"
+        app:layout_constraintTop_toBottomOf="@+id/exportCSV_btn" />
+
+    <Button
+        android:id="@+id/importCSV_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Import CSV"
+        app:layout_constraintBottom_toBottomOf="@+id/exportCSV_btn"
+        app:layout_constraintStart_toEndOf="@+id/exportCSV_btn"
+        app:layout_constraintTop_toTopOf="@+id/exportCSV_btn" />
+
+    <Button
+        android:id="@+id/test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Re Import"
+        app:layout_constraintStart_toEndOf="@+id/deleteAll_btn"
+        app:layout_constraintTop_toBottomOf="@+id/importCSV_btn" />
+
+    <Button
+        android:id="@+id/deleteRow_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Delete Row"
+        app:layout_constraintStart_toStartOf="@+id/deleteAll_btn"
+        app:layout_constraintTop_toBottomOf="@+id/deleteAll_btn" />
+</androidx.constraintlayout.widget.ConstraintLayout>
