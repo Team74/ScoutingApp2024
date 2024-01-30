@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="@+id/plusOrMinus"
-        app:layout_constraintTop_toTopOf="@+id/plusOrMinus"></include>
+        app:layout_constraintStart_toEndOf="@+id/pm_Speaker"
+        app:layout_constraintTop_toTopOf="@+id/pm_Speaker"></include>
 
     <include
         android:id="@+id/plusOrMinus5"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/plusOrMinus5"></include>
 
     <include
-        android:id="@+id/plusOrMinus"
+        android:id="@+id/pm_Speaker"
         layout="@layout/plusorminusbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,8 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus"
-        app:layout_constraintTop_toBottomOf="@+id/plusOrMinus"></include>
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Speaker"></include>
 
     <include
         android:id="@+id/plusOrMinus3"
@@ -77,8 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Cone"
-        app:layout_constraintBottom_toTopOf="@+id/plusOrMinus"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus" />
+        app:layout_constraintBottom_toTopOf="@+id/pm_Speaker"
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker" />
 
     <TextView
         android:id="@+id/textView8"
@@ -95,8 +95,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="High"
-        app:layout_constraintEnd_toStartOf="@+id/plusOrMinus"
-        app:layout_constraintTop_toTopOf="@+id/plusOrMinus" />
+        app:layout_constraintEnd_toStartOf="@+id/pm_Speaker"
+        app:layout_constraintTop_toTopOf="@+id/pm_Speaker" />
 
     <TextView
         android:id="@+id/textView5"

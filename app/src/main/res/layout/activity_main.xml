@@ -36,4 +36,13 @@
         app:layout_constraintStart_toStartOf="@+id/toInputView_btn"
         app:layout_constraintTop_toBottomOf="@+id/toInputView_btn" />
 
+    <Button
+        android:id="@+id/toDataAnalysis_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Data Analysis"
+        app:layout_constraintStart_toStartOf="@+id/toAdminPassword_btn"
+        app:layout_constraintTop_toBottomOf="@+id/toAdminPassword_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

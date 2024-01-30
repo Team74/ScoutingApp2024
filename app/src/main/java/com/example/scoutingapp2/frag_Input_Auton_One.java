@@ -3,15 +3,15 @@ package com.example.scoutingapp2;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,139 +61,87 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
     }
 
     View view;
-    View plusOrMinus1, plusOrMinus2, plusOrMinus3, plusOrMinus4, plusOrMinus5, plusOrMinus6;
-    TextView textView, textView2, textView3, textView4, textView5, textView6;
-    int cubesNumHigh, cubesNumMid, cubesNumLow, conesNumHigh, conesNumMid, conesNumLow;
+    View pm_Speaker, pm_Amp, pm_Grab; //The plus or minus. pm = +-
+    TextView tv_Speaker, tv_Amp, tv_Grab; //The text views of the +-, tv = textview
+    CheckBox cb_leaveStart;
+    int speakerNum, ampNum, grabNum;
+    Boolean boolLeaveStart = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_frag_input_auton_one, container, false);
-        plusOrMinus1 = (View) view.findViewById(R.id.plusOrMinus);
-        Button plusBtn = plusOrMinus1.findViewById(R.id.plus_button);
-        Button minusBtn = plusOrMinus1.findViewById(R.id.minus_button);
-        textView = plusOrMinus1.findViewById(R.id.pre_match_text);
-        textView.setText(String.valueOf(cubesNumHigh));
+        //Set the pm to the right view. We can then call the children of the view
+        pm_Speaker = (View) view.findViewById(R.id.pm_Speaker);
+        Button plusBtn = pm_Speaker.findViewById(R.id.plus_button);
+        Button minusBtn = pm_Speaker.findViewById(R.id.minus_button);
+        tv_Speaker = pm_Speaker.findViewById(R.id.pre_match_text); //this is the inner text. This is unique as it needs to be called later
+        tv_Speaker.setText(String.valueOf(speakerNum));
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cubesNumHigh++;
-                textView.setText(String.valueOf(cubesNumHigh));
+                speakerNum++;
+                tv_Speaker.setText(String.valueOf(speakerNum));
             }
         });
         minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cubesNumHigh--;
-                textView.setText(String.valueOf(cubesNumHigh));
+                speakerNum--;
+                tv_Speaker.setText(String.valueOf(speakerNum));
             }
         });
 
-        plusOrMinus2 = (View) view.findViewById(R.id.plusOrMinus2);
-        Button plusBtn2 = plusOrMinus2.findViewById(R.id.plus_button);
-        Button minusBtn2 = plusOrMinus2.findViewById(R.id.minus_button);
-        textView2 = plusOrMinus2.findViewById(R.id.pre_match_text);
-        textView2.setText(String.valueOf(cubesNumMid));
+        //Doing the same thing again
+        pm_Amp = (View) view.findViewById(R.id.pm_Amp);
+        Button plusBtn2 = pm_Amp.findViewById(R.id.plus_button);
+        Button minusBtn2 = pm_Amp.findViewById(R.id.minus_button);
+        tv_Amp = pm_Amp.findViewById(R.id.pre_match_text);
+        tv_Amp.setText(String.valueOf(ampNum));
 
         plusBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cubesNumMid++;
-                textView2.setText(String.valueOf(cubesNumMid));
+                ampNum++;
+                tv_Amp.setText(String.valueOf(ampNum));
             }
         });
         minusBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cubesNumMid--;
-                textView2.setText(String.valueOf(cubesNumMid));
+                ampNum--;
+                tv_Amp.setText(String.valueOf(ampNum));
             }
         });
 
-        plusOrMinus3 = (View) view.findViewById(R.id.plusOrMinus3);
-        Button plusBtn3 = plusOrMinus3.findViewById(R.id.plus_button);
-        Button minusBtn3 = plusOrMinus3.findViewById(R.id.minus_button);
-        textView3 = plusOrMinus3.findViewById(R.id.pre_match_text);
-        textView3.setText(String.valueOf(cubesNumLow));
+        pm_Grab = (View) view.findViewById(R.id.pm_Grab);
+        Button plusBtn3 = pm_Grab.findViewById(R.id.plus_button);
+        Button minusBtn3 = pm_Grab.findViewById(R.id.minus_button);
+        tv_Grab = pm_Grab.findViewById(R.id.pre_match_text);
+        tv_Grab.setText(String.valueOf(grabNum));
 
         plusBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cubesNumLow ++;
-                textView3.setText(String.valueOf(cubesNumLow));
+                grabNum ++;
+                tv_Grab.setText(String.valueOf(grabNum));
             }
         });
         minusBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cubesNumLow --;
-                textView3.setText(String.valueOf(cubesNumLow));
+                grabNum --;
+                tv_Grab.setText(String.valueOf(grabNum));
             }
         });
 
-        plusOrMinus4 = (View) view.findViewById(R.id.plusOrMinus4);
-        Button plusBtn4 = plusOrMinus4.findViewById(R.id.plus_button);
-        Button minusBtn4 = plusOrMinus4.findViewById(R.id.minus_button);
-        textView4 = plusOrMinus4.findViewById(R.id.pre_match_text);
-        textView4.setText(String.valueOf(conesNumHigh));
-
-        plusBtn4.setOnClickListener(new View.OnClickListener() {
+        cb_leaveStart = view.findViewById(R.id.cb_LeaveStart);
+        cb_leaveStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                conesNumHigh++;
-                textView4.setText(String.valueOf(conesNumHigh));
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                boolLeaveStart = cb_leaveStart.isChecked();
             }
         });
-        minusBtn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conesNumHigh--;
-                textView4.setText(String.valueOf(conesNumHigh));
-            }
-        });
-
-        plusOrMinus5 = (View) view.findViewById(R.id.plusOrMinus5);
-        Button plusBtn5 = plusOrMinus5.findViewById(R.id.plus_button);
-        Button minusBtn5 = plusOrMinus5.findViewById(R.id.minus_button);
-        textView5 = plusOrMinus5.findViewById(R.id.pre_match_text);
-        textView5.setText(String.valueOf(conesNumMid));
-
-        plusBtn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conesNumMid++;
-                textView5.setText(String.valueOf(conesNumMid));
-            }
-        });
-        minusBtn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conesNumMid--;
-                textView5.setText(String.valueOf(conesNumMid));
-            }
-        });
-
-        plusOrMinus6 = (View) view.findViewById(R.id.plusOrMinus6);
-        Button plusBtn6 = plusOrMinus6.findViewById(R.id.plus_button);
-        Button minusBtn6 = plusOrMinus6.findViewById(R.id.minus_button);
-        textView6 = plusOrMinus6.findViewById(R.id.pre_match_text);
-        textView6.setText(String.valueOf(conesNumLow));
-
-        plusBtn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conesNumLow++;
-                textView6.setText(String.valueOf(conesNumLow));
-            }
-        });
-        minusBtn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conesNumLow--;
-                textView6.setText(String.valueOf(conesNumLow));
-            }
-        });
-
         return view;
     }
 
@@ -220,15 +168,15 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
     }
 
     public void sendData(){
-        passData(cubesNumLow, cubesNumMid, cubesNumHigh, conesNumLow, conesNumMid, conesNumHigh);
+        passData(boolLeaveStart, speakerNum, ampNum, grabNum);
     }
 
     public void retriveData(ContentValues data){
-        cubesNumHigh = data.getAsInteger("data");
+        speakerNum = data.getAsInteger("data");
     }
 
     public interface AutonOnDataPass {
-        public void AutonOnDataPass(int cubeLow, int cubeMid, int cubeHigh, int coneLow, int coneMid, int coneHigh);
+        public void AutonOnDataPass(boolean autoLeaveSpot, int autoSpeaker, int autoAmp, int autoGrab);
     }
 
     AutonOnDataPass dataPasser;
@@ -239,7 +187,7 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
         dataPasser = (AutonOnDataPass) context;
     }
 
-    public void passData(int cubeLow, int cubeMid, int cubeHigh, int coneLow, int coneMid, int coneHigh) {
-        dataPasser.AutonOnDataPass(cubeLow, cubeMid, cubeHigh, coneLow, coneMid, coneHigh);
+    public void passData(boolean autoLeaveSpot, int autoSpeaker, int autoAmp, int autoGrab) {
+        dataPasser.AutonOnDataPass(autoLeaveSpot, autoSpeaker, autoAmp, autoGrab);
     }
 }

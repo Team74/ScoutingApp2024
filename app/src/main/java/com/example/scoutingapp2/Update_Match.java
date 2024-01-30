@@ -1,9 +1,5 @@
 package com.example.scoutingapp2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
@@ -106,13 +106,16 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
                 autonFragment.sendData();
                 teleopFragment.sendData();
                 Log.d("Hello", "Data is: "
-                        + String.valueOf(preMatch_int)
-                        + String.valueOf(auton_int)
+                        + String.valueOf(teamNum_int)
+                        + String.valueOf(autoSpeaker)
                         + String.valueOf(teleop_int));
                 //put the data into a CV
                 ContentValues cv = new ContentValues();
-                cv.put(myDB.COLUMN_PREMATCH, preMatch_int);
-                cv.put(myDB.COLUMN_AUTON, auton_int);
+                cv.put(myDB.COLUMN_PREMATCH, teleop_int);
+                cv.put(myDB.COLUMN_LEAVESTART, boolLeaveStart);
+                cv.put(myDB.COLUMN_AUTOSPEAKER, autoSpeaker);
+                cv.put(myDB.COLUMN_AUTOAMP, autoAmp);
+                cv.put(myDB.COLUMN_AUTOGRAB, autoGrab);
                 cv.put(myDB.COLUMN_TELEOP, teleop_int);
                 //add it to the database
                 myDB.AddUpdateMatch(id, cv, true); //passing in the id as it is updating and not adding
@@ -185,20 +188,26 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
     }
 
     //This is the data that we receive to put in the data base.
-    int preMatch_int, auton_int, teleop_int;
-
-    @Override
-    public void AutonOnDataPass(int cubeLow, int cubeMid, int cubeHigh, int coneLow, int coneMid, int coneHigh) {
-        auton_int = cubeLow;
-    }
+    int teamNum_int;
+    int autoSpeaker, autoAmp, autoGrab;
+    boolean boolLeaveStart;
+    int teleop_int;
 
     @Override
     public void PreMatchOnDataPass(int data) {
-        preMatch_int = data;
+        teamNum_int = data;
     }
 
     @Override
     public void TeleOpOnDataPass(int data) {
         teleop_int = data;
+    }
+
+    @Override
+    public void AutonOnDataPass(boolean autoLeaveSpot, int autoSpeaker, int autoAmp, int autoGrab) {
+        boolLeaveStart = autoLeaveSpot;
+        this.autoSpeaker = autoSpeaker;
+        this.autoAmp = autoAmp;
+        this.autoGrab = autoGrab;
     }
 }

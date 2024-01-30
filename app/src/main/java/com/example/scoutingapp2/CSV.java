@@ -65,7 +65,7 @@ public class CSV {
                 String[] csvHeaderLine = {
                         myDB.COLUMN_ID,
                         myDB.COLUMN_PREMATCH,
-                        myDB.COLUMN_AUTON,
+                        //myDB.COLUMN_AUTON,
                         myDB.COLUMN_TELEOP
                 };
                 writer.writeNext(csvHeaderLine);

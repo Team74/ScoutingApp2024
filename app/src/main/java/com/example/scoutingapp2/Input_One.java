@@ -1,16 +1,15 @@
 package com.example.scoutingapp2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Input_One extends AppCompatActivity implements frag_Input_TeleOp_One.TeleOpOnDataPass,
         frag_Input_Auton_One.AutonOnDataPass, frag_Input_PreMatch_One.PreMatchOnDataPass {
@@ -95,8 +94,12 @@ public class Input_One extends AppCompatActivity implements frag_Input_TeleOp_On
                 teleopFragment.sendData();
                 ContentValues cv = new ContentValues();
                 cv.put(myDB.COLUMN_PREMATCH, teamNum_int);
-                cv.put(myDB.COLUMN_AUTON, auton_coneHigh);
+                cv.put(myDB.COLUMN_LEAVESTART, boolLeaveStart);
+                cv.put(myDB.COLUMN_AUTOSPEAKER, autoSpeaker);
+                cv.put(myDB.COLUMN_AUTOAMP, autoAmp);
+                cv.put(myDB.COLUMN_AUTOGRAB, autoGrab);
                 cv.put(myDB.COLUMN_TELEOP, teleop_int);
+                Log.d("Hello world", cv.getAsString(myDB.COLUMN_AUTOAMP));
                 myDB.AddUpdateMatch(-1, cv, true);
 
                 //after adding the match, we go back to the view screen
@@ -109,19 +112,9 @@ public class Input_One extends AppCompatActivity implements frag_Input_TeleOp_On
 
 
     int teamNum_int;
-    int auton_cubeLow, auton_cubeMid, auton_cubeHigh, auton_coneLow, auton_coneMid, auton_coneHigh;
+    int autoSpeaker, autoAmp, autoGrab;
+    boolean boolLeaveStart;
     int teleop_int;
-
-    @Override
-    public void AutonOnDataPass(int cubeLow, int cubeMid, int cubeHigh, int coneLow, int coneMid, int coneHigh) {
-        auton_cubeLow = cubeLow;
-        auton_cubeMid = cubeMid;
-        auton_cubeHigh = cubeHigh;
-
-        auton_coneLow = coneLow;
-        auton_coneMid = coneMid;
-        auton_coneHigh = coneHigh;
-    }
 
     @Override
     public void PreMatchOnDataPass(int data) {
@@ -131,5 +124,13 @@ public class Input_One extends AppCompatActivity implements frag_Input_TeleOp_On
     @Override
     public void TeleOpOnDataPass(int data) {
         teleop_int = data;
+    }
+
+    @Override
+    public void AutonOnDataPass(boolean autoLeaveSpot, int autoSpeaker, int autoAmp, int autoGrab) {
+        boolLeaveStart = autoLeaveSpot;
+        this.autoSpeaker = autoSpeaker;
+        this.autoAmp = autoAmp;
+        this.autoGrab = autoGrab;
     }
 }

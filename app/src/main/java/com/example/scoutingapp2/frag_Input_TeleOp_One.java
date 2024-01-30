@@ -3,15 +3,14 @@ package com.example.scoutingapp2;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,7 +66,7 @@ public class frag_Input_TeleOp_One extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_frag_input_teleop_one, container, false);
-        View plusOrMinus = (View) view.findViewById(R.id.plusOrMinus);
+        View plusOrMinus = (View) view.findViewById(R.id.pm_Speaker);
         Button plusBtn = plusOrMinus.findViewById(R.id.plus_button);
         Button minusBtn = plusOrMinus.findViewById(R.id.minus_button);
         plusBtn.setOnClickListener(this);

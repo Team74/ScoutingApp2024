@@ -24,7 +24,10 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_PREMATCH = "pre_match";
-    public static final String COLUMN_AUTON = "auton";
+    public static final String COLUMN_LEAVESTART = "leave_start";
+    public static final String COLUMN_AUTOSPEAKER = "auto_speaker";
+    public static final String COLUMN_AUTOAMP = "auto_amp";
+    public static final String COLUMN_AUTOGRAB = "auto_grab";
     public static final String COLUMN_TELEOP = "teleop";
 
     public MyDataBaseHelper(@Nullable Context context) {
@@ -40,8 +43,11 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + MATCH_TABLE +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // 0  Keep in mind the ids! put the right id into the storeDataInArray() for the add string method
                 COLUMN_PREMATCH + " INTEGER, " + // 1
-                COLUMN_AUTON + " INTEGER, " + // 2
-                COLUMN_TELEOP + " INTEGER);"; // 3
+                COLUMN_LEAVESTART + " BOOLEAN, " + // 2
+                COLUMN_AUTOSPEAKER + " INTEGER, " + // 3
+                COLUMN_AUTOAMP + " INTEGER, " + // 4
+                COLUMN_AUTOGRAB + " INTEGER, " + // 5
+                COLUMN_TELEOP + " INTEGER);"; // 6
         Log.d("path123", "table 1");
         db.execSQL(query);
     }
@@ -55,25 +61,35 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
     public void AddUpdateMatch(int MatchID, ContentValues cv, Boolean displayToast)
     {
-        long result; //used to make sure it does not error
-        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            long result; //used to make sure it does not error
+            SQLiteDatabase db = this.getWritableDatabase();
+            Log.d("Hello world", cv.getAsString(COLUMN_AUTOAMP));
+            Log.d("Hello world", cv.getAsString(COLUMN_AUTOSPEAKER));
+            Log.d("Hello world", cv.getAsString(COLUMN_AUTOGRAB));
+            Log.d("Hello world", cv.getAsString(COLUMN_LEAVESTART));
 
-        // if the match ID is less then one (usually -1), then it will add it as a new match
-        if (MatchID < 0) {
-            result = db.insert(MATCH_TABLE, null, cv);
-        } else { //otherwise, it is treated as an update and find the match id and replace it
-            String row_id = String.valueOf(MatchID);
-            result = db.update(MATCH_TABLE, cv, "_id=?", new String[]{row_id});
-        }
-
-        //If you want to display the toast, then this handles it. You may not want to display toasts when importing many matches, as it slows it down
-        if (displayToast) {
-            if (result == -1)//failed
-            {
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+            // if the match ID is less then one (usually -1), then it will add it as a new match
+            if (MatchID < 0) {
+                result = db.insert(MATCH_TABLE, null, cv);
+            } else { //otherwise, it is treated as an update and find the match id and replace it
+                String row_id = String.valueOf(MatchID);
+                result = db.update(MATCH_TABLE, cv, "_id=?", new String[]{row_id});
             }
+
+            //If you want to display the toast, then this handles it. You may not want to display toasts when importing many matches, as it slows it down
+            if (displayToast) {
+                if (result == -1)//failed
+                {
+                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(context, "Badly Failed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -139,7 +155,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
                 ContentValues cv = new ContentValues();
                 cv.put(COLUMN_PREMATCH, teamNum);
-                cv.put(COLUMN_AUTON, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_LEAVESTART, Integer.valueOf(r.nextInt(6)));
                 cv.put(COLUMN_TELEOP, Integer.valueOf(r.nextInt(6)));
                 // now add random match data for that team
                 AddUpdateMatch(-1, cv, false);

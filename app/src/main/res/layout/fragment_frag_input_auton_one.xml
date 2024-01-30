@@ -7,59 +7,31 @@
     tools:context=".frag_Input_Auton_One">
 
     <include
-        android:id="@+id/plusOrMinus4"
-        layout="@layout/plusorminusbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="@+id/plusOrMinus"
-        app:layout_constraintTop_toTopOf="@+id/plusOrMinus"></include>
-
-    <include
-        android:id="@+id/plusOrMinus5"
+        android:id="@+id/pm_Speaker"
         layout="@layout/plusorminusbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus4"
-        app:layout_constraintTop_toBottomOf="@+id/plusOrMinus4"></include>
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart"
+        app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart"></include>
 
     <include
-        android:id="@+id/plusOrMinus6"
+        android:id="@+id/pm_Amp"
         layout="@layout/plusorminusbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus5"
-        app:layout_constraintTop_toBottomOf="@+id/plusOrMinus5"></include>
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Speaker"></include>
 
     <include
-        android:id="@+id/plusOrMinus"
+        android:id="@+id/pm_Grab"
         layout="@layout/plusorminusbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="112dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></include>
-
-    <include
-        android:id="@+id/plusOrMinus2"
-        layout="@layout/plusorminusbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus"
-        app:layout_constraintTop_toBottomOf="@+id/plusOrMinus"></include>
-
-    <include
-        android:id="@+id/plusOrMinus3"
-        layout="@layout/plusorminusbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus2"
-        app:layout_constraintTop_toBottomOf="@+id/plusOrMinus2"></include>
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Speaker"></include>
 
     <TextView
         android:id="@+id/textView2"
@@ -71,48 +43,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView7"
+    <CheckBox
+        android:id="@+id/cb_LeaveStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Cone"
-        app:layout_constraintBottom_toTopOf="@+id/plusOrMinus"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Leave Start"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Cube"
-        app:layout_constraintBottom_toTopOf="@+id/plusOrMinus4"
-        app:layout_constraintStart_toStartOf="@+id/plusOrMinus4" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="High"
-        app:layout_constraintEnd_toStartOf="@+id/plusOrMinus"
-        app:layout_constraintTop_toTopOf="@+id/plusOrMinus" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Mid"
-        app:layout_constraintEnd_toStartOf="@+id/plusOrMinus2"
-        app:layout_constraintTop_toTopOf="@+id/plusOrMinus2" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Low"
-        app:layout_constraintEnd_toStartOf="@+id/plusOrMinus3"
-        app:layout_constraintTop_toTopOf="@+id/plusOrMinus3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
