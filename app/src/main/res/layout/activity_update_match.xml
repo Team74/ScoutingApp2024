@@ -28,13 +28,13 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.scoutingapp2.frag_Input_Auton_One"
+        android:name="com.example.scoutingapp2.frag_Input_Auton_Three"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/teleop_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_frag_input_teleop_one" />
+        tools:layout="@layout/fragment_frag_input_teleop_three" />
 
     <Button
         android:id="@+id/get_btn"

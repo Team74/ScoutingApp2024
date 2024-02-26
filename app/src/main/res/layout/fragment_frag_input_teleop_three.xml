@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".frag_Input_TeleOp_Three">
+
+    <include
+        android:id="@+id/pm_Speaker_3"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_3"
+        app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart_3"></include>
+
+    <include
+        android:id="@+id/pm_Amp_3"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker_3"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Speaker_3"></include>
+
+    <include
+        android:id="@+id/pm_BS_1"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Amp_1"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Amp_1"></include>
+
+    <include
+        android:id="@+id/pm_Speaker_1"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_1"
+        app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart_1"></include>
+
+
+    <include
+        android:id="@+id/pm_Speaker_2"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_2"
+        app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart_2"></include>
+
+    <include
+        android:id="@+id/pm_Speaker_3"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_3"
+        app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart_3"></include>
+
+    <include
+        android:id="@+id/pm_BS_3"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Amp_3"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Amp_3"></include>
+
+    <include
+        android:id="@+id/pm_Amp_2"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker_2"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Speaker_2"></include>
+
+    <include
+        android:id="@+id/pm_BS_2"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Amp_2"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Amp_2"></include>
+
+    <include
+        android:id="@+id/pm_Amp_1"
+        layout="@layout/plusorminusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/pm_Speaker_1"
+        app:layout_constraintTop_toBottomOf="@+id/pm_Speaker_1"></include>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TeleOp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cb_LeaveStart_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Leave Start"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <CheckBox
+        android:id="@+id/cb_LeaveStart_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:text="Leave Start"
+        app:layout_constraintStart_toEndOf="@+id/cb_LeaveStart_1"
+        app:layout_constraintTop_toTopOf="@+id/cb_LeaveStart_1" />
+
+    <CheckBox
+        android:id="@+id/cb_LeaveStart_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:text="Leave Start"
+        app:layout_constraintStart_toEndOf="@+id/cb_LeaveStart_2"
+        app:layout_constraintTop_toTopOf="@+id/cb_LeaveStart_2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Speaker"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/pm_Speaker_1"
+        app:layout_constraintTop_toTopOf="@+id/pm_Speaker_1" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="Amp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/pm_Amp_1"
+        app:layout_constraintTop_toTopOf="@+id/pm_Amp_1" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Boosted\nSpeaker"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/pm_BS_1"
+        app:layout_constraintTop_toTopOf="@+id/pm_BS_1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

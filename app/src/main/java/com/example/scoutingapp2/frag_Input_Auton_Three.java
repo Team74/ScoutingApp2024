@@ -15,10 +15,10 @@ import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link frag_Input_Auton_One#newInstance} factory method to
+ * Use the {@link frag_Input_Auton_Three#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class frag_Input_Auton_One extends Fragment implements View.OnClickListener {
+public class frag_Input_Auton_Three extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +29,7 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
     private String mParam1;
     private String mParam2;
 
-    public frag_Input_Auton_One() {
+    public frag_Input_Auton_Three() {
         // Required empty public constructor
     }
 
@@ -42,8 +42,8 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
      * @return A new instance of fragment frag_Input_Auton_One.
      */
     // TODO: Rename and change types and number of parameters
-    public static frag_Input_Auton_One newInstance(String param1, String param2) {
-        frag_Input_Auton_One fragment = new frag_Input_Auton_One();
+    public static frag_Input_Auton_Three newInstance(String param1, String param2) {
+        frag_Input_Auton_Three fragment = new frag_Input_Auton_Three();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,9 +70,9 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_frag_input_auton_one, container, false);
+        view = inflater.inflate(R.layout.fragment_frag_input_auton_three, container, false);
         //Set the pm to the right view. We can then call the children of the view
-        pm_Speaker = (View) view.findViewById(R.id.pm_Speaker);
+        pm_Speaker = (View) view.findViewById(R.id.pm_Speaker_1);
         Button plusBtn = pm_Speaker.findViewById(R.id.plus_button);
         Button minusBtn = pm_Speaker.findViewById(R.id.minus_button);
         tv_Speaker = pm_Speaker.findViewById(R.id.pre_match_text); //this is the inner text. This is unique as it needs to be called later
@@ -93,7 +93,7 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
         });
 
         //Doing the same thing again
-        pm_Amp = (View) view.findViewById(R.id.pm_Amp);
+        pm_Amp = (View) view.findViewById(R.id.pm_Amp_1);
         Button plusBtn2 = pm_Amp.findViewById(R.id.plus_button);
         Button minusBtn2 = pm_Amp.findViewById(R.id.minus_button);
         tv_Amp = pm_Amp.findViewById(R.id.pre_match_text);
@@ -114,7 +114,7 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
             }
         });
 
-        pm_Grab = (View) view.findViewById(R.id.pm_Grab);
+        pm_Grab = (View) view.findViewById(R.id.pm_BS_1);
         Button plusBtn3 = pm_Grab.findViewById(R.id.plus_button);
         Button minusBtn3 = pm_Grab.findViewById(R.id.minus_button);
         tv_Grab = pm_Grab.findViewById(R.id.pre_match_text);
@@ -135,7 +135,7 @@ public class frag_Input_Auton_One extends Fragment implements View.OnClickListen
             }
         });
 
-        cb_leaveStart = view.findViewById(R.id.cb_LeaveStart);
+        cb_leaveStart = view.findViewById(R.id.cb_LeaveStart_1);
         cb_leaveStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {

@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.service.autofill.FieldClassification;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,7 +50,7 @@ public class Input_View extends AppCompatActivity {
         toOneInput_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Input_View.this, Input_One.class);
+                Intent intent = new Intent(Input_View.this, Input_Three.class);
                 startActivity(intent);
             }
         });

@@ -3,25 +3,21 @@ package com.example.scoutingapp2;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 
-//TODO delete the starting code if it become unused
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link frag_Input_PreMatch_One#newInstance} factory method to
+ * Use the {@link frag_Input_TeleOp_Three#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class frag_Input_PreMatch_One extends Fragment implements View.OnClickListener {
+public class frag_Input_TeleOp_Three extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +28,7 @@ public class frag_Input_PreMatch_One extends Fragment implements View.OnClickLis
     private String mParam1;
     private String mParam2;
 
-    public frag_Input_PreMatch_One() {
+    public frag_Input_TeleOp_Three() {
         // Required empty public constructor
     }
 
@@ -42,11 +38,11 @@ public class frag_Input_PreMatch_One extends Fragment implements View.OnClickLis
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment frag_Input_Team_One.
+     * @return A new instance of fragment frag_Input_TeleOp_One.
      */
     // TODO: Rename and change types and number of parameters
-    public static frag_Input_PreMatch_One newInstance(String param1, String param2) {
-        frag_Input_PreMatch_One fragment = new frag_Input_PreMatch_One();
+    public static frag_Input_TeleOp_Three newInstance(String param1, String param2) {
+        frag_Input_TeleOp_Three fragment = new frag_Input_TeleOp_Three();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,46 +60,62 @@ public class frag_Input_PreMatch_One extends Fragment implements View.OnClickLis
     }
 
     View view;
-    EditText teamNum_et;
+    TextView textView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_frag_input_prematch_one, container, false);
-
-        teamNum_et = view.findViewById(R.id.teamNum_et);
-        teamNum_et.setText(String.valueOf(teamNum));
-
         // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_frag_input_teleop_three, container, false);
+        View plusOrMinus = (View) view.findViewById(R.id.pm_Speaker_1);
+        Button plusBtn = plusOrMinus.findViewById(R.id.plus_button);
+        Button minusBtn = plusOrMinus.findViewById(R.id.minus_button);
+        plusBtn.setOnClickListener(this);
+        minusBtn.setOnClickListener(this);
+        textView = plusOrMinus.findViewById(R.id.pre_match_text);
+        textView.setText(String.valueOf(cubesNum));
+
+
         return view;
     }
 
-    int teamNum;
+    int cubesNum = 0;
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.plus_button:
+                cubesNum ++;
+                textView.setText(String.valueOf(cubesNum));
+                Log.d("HELLO", String.valueOf(cubesNum));
+                break;
+            case R.id.minus_button:
+                cubesNum --;
+                textView.setText(String.valueOf(cubesNum));
+                Log.d("HELLO", String.valueOf(cubesNum));
+                break;
+        }
     }
 
     public void sendData(){
-        passData(Integer.parseInt(teamNum_et.getText().toString()));
+        passData(cubesNum);
     }
 
-    public void retriveData(ContentValues data){ //cant set the text in here as this is before the layout is inflated
-        teamNum = data.getAsInteger("data");
+    public void retriveData(ContentValues data){
+        cubesNum = data.getAsInteger("data");
     }
 
-    public interface PreMatchOnDataPass {
-        public void PreMatchOnDataPass(int data);
+    public interface TeleOpOnDataPass {
+        public void TeleOpOnDataPass(int data);
     }
 
-    PreMatchOnDataPass dataPasser;
+    TeleOpOnDataPass dataPasser;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        dataPasser = (PreMatchOnDataPass) context;
+        dataPasser = (TeleOpOnDataPass) context;
     }
 
     public void passData(int data) {
-        dataPasser.PreMatchOnDataPass(data);
+        dataPasser.TeleOpOnDataPass(data);
     }
 }

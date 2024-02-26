@@ -15,8 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
-public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp_One.TeleOpOnDataPass, //implement the interfaces in the fragments to easily send data from them
-        frag_Input_Auton_One.AutonOnDataPass, frag_Input_PreMatch_One.PreMatchOnDataPass {
+public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp_Three.TeleOpOnDataPass, //implement the interfaces in the fragments to easily send data from them
+        frag_Input_Auton_Three.AutonOnDataPass, frag_Input_PreMatch_Three.PreMatchOnDataPass {
 
     //This is the screen that is pulled up when you update a match. We receive the id from the recycler view, then search the data
     //in the database with that ID, then send the current or "old" data to the fragments to display what it is currently, then we do the same
@@ -28,9 +28,9 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
     Button auton_btn;
     Button teleop_btn, get_btn, prematch_btn;
 
-    frag_Input_Auton_One autonFragment;
-    frag_Input_TeleOp_One teleopFragment;
-    frag_Input_PreMatch_One prematchFragment; //making fragments, these are the screens in the main activity
+    frag_Input_Auton_Three autonFragment;
+    frag_Input_TeleOp_Three teleopFragment;
+    frag_Input_PreMatch_Three prematchFragment; //making fragments, these are the screens in the main activity
 
     MyDataBaseHelper myDB = new MyDataBaseHelper(Update_Match.this);
 
@@ -39,16 +39,16 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_one);
+        setContentView(R.layout.activity_input_three);
 
         auton_btn = findViewById(R.id.auton_btn);
         teleop_btn = findViewById(R.id.teleop_btn);
         get_btn = findViewById(R.id.get_btn);
         prematch_btn = findViewById(R.id.prematch_btn);
 
-        autonFragment = new frag_Input_Auton_One();
-        teleopFragment = new frag_Input_TeleOp_One();
-        prematchFragment = new frag_Input_PreMatch_One();
+        autonFragment = new frag_Input_Auton_Three();
+        teleopFragment = new frag_Input_TeleOp_Three();
+        prematchFragment = new frag_Input_PreMatch_Three();
 
         FragmentManager fragmentManager = getSupportFragmentManager(); //getting a manager to manage the fragments
 
