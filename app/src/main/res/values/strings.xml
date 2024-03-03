@@ -2,4 +2,10 @@
     <string name="app_name">Scouting App 2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="balance">
+    <item>Did not Attempt</item>
+    <item>On Stage</item>
+    <item>On Chain</item>
+    <item>Harmonized</item>
+    </string-array>
 </resources>

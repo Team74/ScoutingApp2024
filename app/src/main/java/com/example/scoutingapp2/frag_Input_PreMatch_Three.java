@@ -3,13 +3,12 @@ package com.example.scoutingapp2;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
 
 
 //TODO delete the starting code if it become unused
@@ -61,35 +60,45 @@ public class frag_Input_PreMatch_Three extends Fragment implements View.OnClickL
     }
 
     View view;
-    EditText teamNum_et;
+    EditText teamNum1_et, teamNum2_et, teamNum3_et;
+    int test;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_frag_input_prematch_three, container, false);
 
-        teamNum_et = view.findViewById(R.id.teamNum_1_et);
-        teamNum_et.setText(String.valueOf(teamNum));
+        teamNum1_et = view.findViewById(R.id.teamNum_1_et);
+        teamNum1_et.setText(String.valueOf(teamNums[0]));
+
+        teamNum2_et = view.findViewById(R.id.teamNum_2_et);
+        teamNum2_et.setText(String.valueOf(teamNums[1]));
+
+        teamNum3_et = view.findViewById(R.id.teamNum_3_et);
+        teamNum3_et.setText(String.valueOf(teamNums[2]));
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    int teamNum;
     @Override
     public void onClick(View v) {
 
     }
 
+    int[] teamNums = {0,0,0};
     public void sendData(){
-        passData(Integer.parseInt(teamNum_et.getText().toString()));
+        teamNums[0] = Integer.parseInt(teamNum1_et.getText().toString());
+        teamNums[1] = Integer.parseInt(teamNum2_et.getText().toString());
+        teamNums[2] = Integer.parseInt(teamNum3_et.getText().toString());
+        passData(teamNums);
     }
 
-    public void retriveData(ContentValues data){ //cant set the text in here as this is before the layout is inflated
-        teamNum = data.getAsInteger("data");
+    public void retrieveData(ContentValues data){ //cant set the text in here as this is before the layout is inflated
+        teamNums[0] = data.getAsInteger("data");
     }
 
     public interface PreMatchOnDataPass {
-        public void PreMatchOnDataPass(int data);
+        public void PreMatchOnDataPass(int[] data);
     }
 
     PreMatchOnDataPass dataPasser;
@@ -100,7 +109,7 @@ public class frag_Input_PreMatch_Three extends Fragment implements View.OnClickL
         dataPasser = (PreMatchOnDataPass) context;
     }
 
-    public void passData(int data) {
+    public void passData(int[] data) {
         dataPasser.PreMatchOnDataPass(data);
     }
 }

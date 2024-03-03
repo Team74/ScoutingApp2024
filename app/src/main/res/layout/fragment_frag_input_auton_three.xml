@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".frag_Input_Auton_Three">
 
+    <TextView
+        android:id="@+id/auton_teamNum2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/cb_LeaveStart_2"
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_2" />
+
     <include
         android:id="@+id/pm_Speaker_3"
         layout="@layout/plusorminusbutton"
@@ -51,16 +60,6 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_2"
         app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart_2"></include>
-
-    <include
-        android:id="@+id/pm_Speaker_3"
-        layout="@layout/plusorminusbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_3"
-        app:layout_constraintTop_toBottomOf="@+id/cb_LeaveStart_3"></include>
-
     <include
         android:id="@+id/pm_BS_3"
         layout="@layout/plusorminusbutton"
@@ -111,11 +110,10 @@
         android:id="@+id/cb_LeaveStart_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Leave Start"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/auton_teamNum1"
+        app:layout_constraintTop_toBottomOf="@+id/auton_teamNum1" />
 
     <CheckBox
         android:id="@+id/cb_LeaveStart_2"
@@ -167,5 +165,24 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/pm_BS_1"
         app:layout_constraintTop_toTopOf="@+id/pm_BS_1" />
+
+    <TextView
+        android:id="@+id/auton_teamNum1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/auton_teamNum3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/cb_LeaveStart_3"
+        app:layout_constraintStart_toStartOf="@+id/cb_LeaveStart_3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

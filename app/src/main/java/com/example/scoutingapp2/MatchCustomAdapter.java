@@ -53,7 +53,7 @@ public class MatchCustomAdapter extends RecyclerView.Adapter<MatchCustomAdapter.
 
         Log.d("path123", "hi");
         holder.preMatch_txt.setText(String.valueOf(id_ary.get(position)));
-        holder.auton_txt.setText(String.valueOf(auton_ary.get(position)));
+        holder.auton_txt.setText(String.valueOf(preMatch_ary.get(position)));
         holder.teleop_txt.setText(String.valueOf(teleop_ary.get(position)));
 
         //this handles what happens when someone clicks on the item
@@ -83,10 +83,10 @@ public class MatchCustomAdapter extends RecyclerView.Adapter<MatchCustomAdapter.
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            preMatch_txt = itemView.findViewById(R.id.preMatch_txt);
+            preMatch_txt = itemView.findViewById(R.id.id_text);
             mainLayout = itemView.findViewById(R.id.mainLayout);
-            auton_txt = itemView.findViewById(R.id.auton_txt);
-            teleop_txt = itemView.findViewById(R.id.teleop_txt);
+            auton_txt = itemView.findViewById(R.id.teamNum_text);
+            teleop_txt = itemView.findViewById(R.id.auton_text);
         }
     }
 }

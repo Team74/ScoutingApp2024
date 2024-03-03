@@ -64,9 +64,16 @@ public class CSV {
                 // write a header record to the CSV file to aid in importing into Tableau
                 String[] csvHeaderLine = {
                         myDB.COLUMN_ID,
-                        myDB.COLUMN_PREMATCH,
-                        //myDB.COLUMN_AUTON,
-                        myDB.COLUMN_TELEOP
+                        myDB.COLUMN_TEAMNUM,
+                        myDB.COLUMN_LEAVESTART,
+                        myDB.COLUMN_AUTOSPEAKER,
+                        myDB.COLUMN_AUTOAMP,
+                        myDB.COLUMN_AUTOGRAB,
+                        myDB.COLUMN_TELESPEAKER,
+                        myDB.COLUMN_TELEAMP,
+                        myDB.COLUMN_TELEAMPSPEAKER,
+                        myDB.COLUMN_CLIMB,
+                        myDB.COLUMN_TRAPDOOR
                 };
                 writer.writeNext(csvHeaderLine);
 

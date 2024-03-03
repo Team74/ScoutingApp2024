@@ -252,8 +252,17 @@ public class Admin extends AppCompatActivity {
             SQLiteDatabase db = myDB.getWritableDatabase();
 
             String[] csvHeaderLine = {
-                  //  myDB.COLUMN_MATCHNUM,
-
+                    myDB.COLUMN_ID,
+                    myDB.COLUMN_TEAMNUM,
+                    myDB.COLUMN_LEAVESTART,
+                    myDB.COLUMN_AUTOSPEAKER,
+                    myDB.COLUMN_AUTOAMP,
+                    myDB.COLUMN_AUTOGRAB,
+                    myDB.COLUMN_TELESPEAKER,
+                    myDB.COLUMN_TELEAMP,
+                    myDB.COLUMN_TELEAMPSPEAKER,
+                    myDB.COLUMN_CLIMB,
+                    myDB.COLUMN_TRAPDOOR
             };
 
             // open file via the uri
@@ -271,7 +280,7 @@ public class Admin extends AppCompatActivity {
             while ((csvLine = reader.readNext()) != null) {
 
                 // check for the CSV header row and skip it
-                if (csvLine[0].equals("match_num")) {
+                if (csvLine[0].equals("_id")) {
                     continue;
                 }
 

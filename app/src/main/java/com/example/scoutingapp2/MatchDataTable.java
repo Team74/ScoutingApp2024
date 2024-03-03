@@ -30,51 +30,34 @@ public class MatchDataTable extends ScoutingReportActivity {
     String delistTeams = "";
 
     //region TeleOp Points and Auton Points strings
-    String totalTeleopPoints = "(teleOpConesLow * 2) + (teleOpConesMid * 3) + (teleOpConesHigh * 5) + (teleOpCubesLow * 2) + (teleOpCubesMid * 3) + (teleOpCubesHigh * 5)";
+    String totalTeleopPoints = "(tele_speaker * 2) + (tele_amp * 1) + (tele_amped_speaker * 5)";
 
-    String totalAutoPoints = "(autoConesLow * 2) + (autoConesMid * 3) + (autoConesHigh * 5) + (autoCubesLow * 2) + (autoCubesMid * 3) + (autoCubesHigh * 5)";
+    String totalAutoPoints = "(auto_speaker * 2) + (auto_amp * 1)";
     //endregion
 
     public class UpdateMatchDataTable implements ScoutingReportActivity.ReportUpdateCommand {
 
         public void update(String orderBy, String orderType) {
             // get all the data records from the DB
-            String simpleColumns[] = {myDB.COLUMN_PREMATCH, "Total_Points", "Max_autoPiecesTotal","_Cycles","Max_teleOpConesTotal", "Max_teleOpCubesTotal"};
-            String advColumns[] = {"MAX_autoBalance", "_teleOpBalance", "_autoConesTotal", "_autoCubesTotal", "_autonWorked", "_broke", "_Defence"};
-            String allColumns[] = {"_autoConesLow", "_autoConesMid", "_autoConesHigh", "_autoCubesLow", "_autoCubesMid", "_autoCubesHigh",
-                    "_teleOpConesLow", "_teleOpConesMid", "_teleOpConesHigh", "_teleOpCubesLow", "_teleOpCubesMid", "_teleOpCubesHigh"};
+            String simpleColumns[] = {myDB.COLUMN_TEAMNUM, "Total_Points", "_Auto_Pieces","_Cycles","_teleSpeaker", "_teleAmp"};
 
-            String simpleHeadings[] = {"Team #", "Total Points", "Auto", "Cycles", "Avg Tele Cones", "Avg Tele Cubes"};
-            String advHeadings[] = {"Auton Balance", "_teleOpBalance", "_autoConesTotal", "_autoCubesTotal", "_autonWorked", "_broke", "_Defence"};
-            String allHeadings[] = {"Team #", "_autoConesLow", "_autoConesMid", "_autoConesHigh", "_autoCubesLow", "_autoCubesMid", "_autoCubesHigh",
-                    "_teleOpConesLow", "_teleOpConesMid", "_teleOpConesHigh", "_teleOpCubesLow", "_teleOpCubesMid", "_teleOpCubesHigh"};
+            String simpleHeadings[] = {"Team #", "Total Points", "Auto", "Cycles", "Avg Speaker", "Avg Amp"};
 
-            String query = "SELECT " + myDB.COLUMN_PREMATCH +
+            String query = "SELECT " + myDB.COLUMN_TEAMNUM +
                     simpleData +
                     advData + allData +
                     " FROM " + myDB.MATCH_TABLE +
-                    " WHERE " + myDB.COLUMN_PREMATCH + " NOT IN (" + delistTeams + ")" +
-                    " GROUP BY " + myDB.COLUMN_PREMATCH +
+                    " WHERE " + myDB.COLUMN_TEAMNUM + " NOT IN (" + delistTeams + ")" +
+                    " GROUP BY " + myDB.COLUMN_TEAMNUM +
                     " ORDER BY " + orderType + " " + orderBy + " ";
 
             SQLiteDatabase db = myDB.getReadableDatabase();
             Cursor cursor = db.rawQuery(query, null);
 
             Log.d("testing123", "abc " + String.valueOf(radioIndex));
-            if(radioIndex == 1)// add the header strings as a row to our table
-            {
-                String[] headings = combine2Strings(simpleHeadings, advHeadings);
-                AddHeaderStringsAsRowToReportTable(R.id.matchDataTableHeader,
-                        headings, this, 10);
-            }else if(radioIndex == 0)
-            {
+
                 AddHeaderStringsAsRowToReportTable(R.id.matchDataTableHeader,
                         simpleHeadings, this, 10);
-            } else if (radioIndex == 2) {
-                AddHeaderStringsAsRowToReportTable(R.id.matchDataTableHeader,
-                        allHeadings, this, 10);
-            }
-
 
             if (cursor.getCount() == 0) {
                 //Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
@@ -86,32 +69,12 @@ public class MatchDataTable extends ScoutingReportActivity {
                 do {
                     // add each data value to an array of strings
                     List<String> values = new ArrayList<String>();
-                    if(radioIndex == 0 || radioIndex ==1) {
                         for (String col : simpleColumns) {
                             Integer idx = cursor.getColumnIndex(col);
                             if (idx >= 0) {
                                 values.add(cursor.getString(idx));
                             }
                         }
-                    }
-                    if(radioIndex == 1)
-                    {
-                        for (String col : advColumns) {
-                            Integer idx = cursor.getColumnIndex(col);
-                            if (idx >= 0) {
-                                values.add(cursor.getString(idx));
-                            }
-                        }
-                    }
-                    if(radioIndex == 2)
-                    {
-                        for (String col : allColumns) {
-                            Integer idx = cursor.getColumnIndex(col);
-                            if (idx >= 0) {
-                                values.add(cursor.getString(idx));
-                            }
-                        }
-                    }
                     String[] data = values.toArray(new String[0]);
 
                     // add the data strings as a row to our table
@@ -143,7 +106,7 @@ public class MatchDataTable extends ScoutingReportActivity {
         Button delist_btn = findViewById(R.id.delist_btn);
         UpdateMatchDataTable updateMatchDataTable = new UpdateMatchDataTable();
 
-        updateMatchDataTable.update("ASC", myDB.COLUMN_PREMATCH);
+        updateMatchDataTable.update("ASC", myDB.COLUMN_TEAMNUM);
         minMaxSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -151,13 +114,13 @@ public class MatchDataTable extends ScoutingReportActivity {
                 {
                     minMax = "MAX";
                     refreshSimpleData();
-                    //updateMatchDataTable.update("ASC", myDB.COLUMN_PREMATCH);
+                    updateMatchDataTable.update("ASC", myDB.COLUMN_TEAMNUM);
                 }else if(!minMaxSwitch.isChecked())
                 {
                     minMax = "AVG";
                    refreshSimpleData();
                     refreshAdvData();
-                    updateMatchDataTable.update("ASC", myDB.COLUMN_PREMATCH);
+                    updateMatchDataTable.update("ASC", myDB.COLUMN_TEAMNUM);
                 }
             }
         });
@@ -225,7 +188,12 @@ public class MatchDataTable extends ScoutingReportActivity {
 
     void refreshSimpleData()
     {
-        simpleData = " , ROUND("+ minMax + " (AUTON), 2) AS Total_Points ";
+        //Round(min, max, avg) + "database coloum, digits as table coloum name
+        simpleData = " , ROUND("+ minMax + " (" + totalTeleopPoints + "+" + totalAutoPoints + "), 2) AS Total_Points " +
+                " , ROUND("+ minMax + "(auto_speaker + auto_amp), 2) AS _Auto_Pieces " +
+                " , ROUND("+ minMax + "(tele_speaker + tele_amp + tele_amped_speaker), 2) AS _Cycles " +
+                " , ROUND("+ minMax + "(tele_speaker), 2) AS _teleSpeaker " +
+                " , ROUND("+ minMax + "(tele_amp), 2) AS _teleAmp ";
 
     }
     void refreshAdvData()

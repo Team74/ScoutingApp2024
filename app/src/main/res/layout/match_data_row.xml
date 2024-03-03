@@ -17,7 +17,7 @@
             android:padding="12dp">
 
             <TextView
-                android:id="@+id/preMatch_txt"
+                android:id="@+id/id_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
@@ -27,27 +27,38 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/auton_txt"
+                android:id="@+id/teamNum_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="TeamNum"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/preMatch_txt"
-                app:layout_constraintStart_toEndOf="@+id/preMatch_txt"
-                app:layout_constraintTop_toTopOf="@+id/preMatch_txt" />
+                app:layout_constraintBottom_toBottomOf="@+id/id_text"
+                app:layout_constraintStart_toEndOf="@+id/id_text"
+                app:layout_constraintTop_toTopOf="@+id/id_text" />
 
             <TextView
-                android:id="@+id/teleop_txt"
+                android:id="@+id/auton_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:text="TeamName"
+                android:text="Auton"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/auton_txt"
-                app:layout_constraintTop_toTopOf="@+id/auton_txt" />
+                app:layout_constraintStart_toEndOf="@+id/teamNum_text"
+                app:layout_constraintTop_toTopOf="@+id/teamNum_text" />
+
+            <TextView
+                android:id="@+id/tele_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="Tele"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/auton_text"
+                app:layout_constraintTop_toTopOf="@+id/auton_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

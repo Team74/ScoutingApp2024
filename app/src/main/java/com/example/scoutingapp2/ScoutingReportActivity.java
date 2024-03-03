@@ -37,9 +37,9 @@ public class ScoutingReportActivity extends AppCompatActivity{
         if (layoutId != 0) {
             ConstraintLayout layout = (ConstraintLayout) findViewById(layoutId);
             if (teamColor.equals("Blue")) {
-                layout.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                layout.setBackgroundColor(getResources().getColor(R.color.light_red));
             } else if (teamColor.equals("Red")) {
-                layout.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                layout.setBackgroundColor(getResources().getColor(R.color.light_blue));
             }
         }
     }
@@ -171,9 +171,9 @@ public class ScoutingReportActivity extends AppCompatActivity{
 
         // alternate the background color of each row
         if ((rowNumber % 2) == 0) {
-            row.setBackgroundResource(R.color.teal_700);
+            row.setBackgroundResource(R.color.light_blue);
         } else {
-            row.setBackgroundResource(R.color.teal_200);
+            row.setBackgroundResource(R.color.light_red);
         }
 
         // add each data string as an item to our row

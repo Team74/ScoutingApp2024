@@ -23,12 +23,16 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String MATCH_TABLE = "Match_Data";
 
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_PREMATCH = "pre_match";
+    public static final String COLUMN_TEAMNUM = "team_num";
     public static final String COLUMN_LEAVESTART = "leave_start";
     public static final String COLUMN_AUTOSPEAKER = "auto_speaker";
     public static final String COLUMN_AUTOAMP = "auto_amp";
     public static final String COLUMN_AUTOGRAB = "auto_grab";
-    public static final String COLUMN_TELEOP = "teleop";
+    public static final String COLUMN_TELESPEAKER = "tele_speaker";
+    public static final String COLUMN_TELEAMP = "tele_amp";
+    public static final String COLUMN_TELEAMPSPEAKER = "tele_amped_speaker";
+    public static final String COLUMN_CLIMB = "climb";
+    public static final String COLUMN_TRAPDOOR = "trapdoor";
 
     public MyDataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -42,12 +46,16 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + MATCH_TABLE +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // 0  Keep in mind the ids! put the right id into the storeDataInArray() for the add string method
-                COLUMN_PREMATCH + " INTEGER, " + // 1
-                COLUMN_LEAVESTART + " BOOLEAN, " + // 2
+                COLUMN_TEAMNUM + " INTEGER, " + // 1
+                COLUMN_LEAVESTART + " INTEGER, " + // 2
                 COLUMN_AUTOSPEAKER + " INTEGER, " + // 3
                 COLUMN_AUTOAMP + " INTEGER, " + // 4
                 COLUMN_AUTOGRAB + " INTEGER, " + // 5
-                COLUMN_TELEOP + " INTEGER);"; // 6
+                COLUMN_TELESPEAKER + " INTEGER, " + // 6
+                COLUMN_TELEAMP + " INTEGER, " + // 7
+                COLUMN_TELEAMPSPEAKER + " INTEGER, " + // 8
+                COLUMN_CLIMB + " INTEGER, " + // 9
+                COLUMN_TRAPDOOR + " INTEGER);"; // 10
         Log.d("path123", "table 1");
         db.execSQL(query);
     }
@@ -154,9 +162,16 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                 // tbd check if it's been used for this match already
 
                 ContentValues cv = new ContentValues();
-                cv.put(COLUMN_PREMATCH, teamNum);
+                cv.put(COLUMN_TEAMNUM, teamNum);
                 cv.put(COLUMN_LEAVESTART, Integer.valueOf(r.nextInt(6)));
-                cv.put(COLUMN_TELEOP, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_AUTOSPEAKER,Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_AUTOAMP, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_AUTOGRAB, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_TELESPEAKER, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_TELEAMP, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_TELEAMPSPEAKER, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_CLIMB, Integer.valueOf(r.nextInt(6)));
+                cv.put(COLUMN_TRAPDOOR, Integer.valueOf(r.nextInt(6)));
                 // now add random match data for that team
                 AddUpdateMatch(-1, cv, false);
             }

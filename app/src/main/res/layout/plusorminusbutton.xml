@@ -8,18 +8,21 @@
 
     <Button
         android:id="@+id/plus_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:text="+"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/pre_match_text"
         android:layout_width="50dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
+        android:background="#000000"
         android:gravity="center"
         android:text="0"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/plus_button"
         app:layout_constraintStart_toEndOf="@+id/plus_button"
@@ -28,9 +31,12 @@
 
     <Button
         android:id="@+id/minus_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
         android:text="-"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/pre_match_text"
         app:layout_constraintTop_toTopOf="@+id/plus_button" />
 

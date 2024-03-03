@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 
 public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp_Three.TeleOpOnDataPass, //implement the interfaces in the fragments to easily send data from them
-        frag_Input_Auton_Three.AutonOnDataPass, frag_Input_PreMatch_Three.PreMatchOnDataPass {
+        frag_Input_Auton_Three.AutonOnDataPass, frag_Input_PreMatch_Three.PreMatchOnDataPass, frag_Input_Endgame_Three.EndGameOpOnDataPass {
 
     //This is the screen that is pulled up when you update a match. We receive the id from the recycler view, then search the data
     //in the database with that ID, then send the current or "old" data to the fragments to display what it is currently, then we do the same
@@ -105,21 +105,22 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
                 prematchFragment.sendData();
                 autonFragment.sendData();
                 teleopFragment.sendData();
-                Log.d("Hello", "Data is: "
-                        + String.valueOf(teamNum_int)
-                        + String.valueOf(autoSpeaker)
-                        + String.valueOf(teleop_int));
                 //put the data into a CV
-                ContentValues cv = new ContentValues();
-                cv.put(myDB.COLUMN_PREMATCH, teleop_int);
-                cv.put(myDB.COLUMN_LEAVESTART, boolLeaveStart);
-                cv.put(myDB.COLUMN_AUTOSPEAKER, autoSpeaker);
-                cv.put(myDB.COLUMN_AUTOAMP, autoAmp);
-                cv.put(myDB.COLUMN_AUTOGRAB, autoGrab);
-                cv.put(myDB.COLUMN_TELEOP, teleop_int);
-                //add it to the database
-                myDB.AddUpdateMatch(id, cv, true); //passing in the id as it is updating and not adding
-
+                for (int i = 0; i  <= 2; i++) {
+                    ContentValues cv = new ContentValues();
+                    cv.put(myDB.COLUMN_TEAMNUM, teamNum_int[i]);
+                    cv.put(myDB.COLUMN_LEAVESTART, boolLeaveStart[i]);
+                    cv.put(myDB.COLUMN_AUTOSPEAKER, autoSpeaker[i]);
+                    cv.put(myDB.COLUMN_AUTOAMP, autoAmp[i]);
+                    cv.put(myDB.COLUMN_AUTOGRAB, autoGrab[i]);
+                    cv.put(myDB.COLUMN_TELESPEAKER, teleSpeaker[i]);
+                    cv.put(myDB.COLUMN_TELEAMP, teleAmp[i]);
+                    cv.put(myDB.COLUMN_TELEAMPSPEAKER, teleAmpSpeaker[i]);
+                    cv.put(myDB.COLUMN_CLIMB, climbAmount[i]);
+                    cv.put(myDB.COLUMN_TRAPDOOR, trapDoor[i]);
+                    Log.d("Hello world", cv.getAsString(myDB.COLUMN_AUTOAMP));
+                    myDB.AddUpdateMatch(-1, cv, true);
+                }
                 //after adding the match, we go back to the view screen
                 Intent intent = new Intent(Update_Match.this, Input_View.class);
                 startActivity(intent);
@@ -176,7 +177,7 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
         //Create a CV, put the values in it, then send it as one package to the fragment to display and set values
         ContentValues preMatchCV = new ContentValues();
         preMatchCV.put("data", preMatch_old);
-        prematchFragment.retriveData(preMatchCV);
+        prematchFragment.retrieveData(preMatchCV);
 
         ContentValues autonCV = new ContentValues();
         autonCV.put("data", auton_old);
@@ -188,26 +189,43 @@ public class Update_Match extends AppCompatActivity implements frag_Input_TeleOp
     }
 
     //This is the data that we receive to put in the data base.
-    int teamNum_int;
-    int autoSpeaker, autoAmp, autoGrab;
-    boolean boolLeaveStart;
-    int teleop_int;
+    int[] teamNum_int = {0,0,0};
+    int[] autoSpeaker = {0,0,0}, autoAmp = {0,0,0}, autoGrab = {0,0,0};
+    boolean[] boolLeaveStart = {false, false, false};
+    int[] teleSpeaker = {0,0,0}, teleAmp = {0,0,0}, teleAmpSpeaker = {0,0,0};
+    int[] trapDoor = {0,0,0}, climbAmount = {0,0,0};
 
     @Override
-    public void PreMatchOnDataPass(int data) {
-        teamNum_int = data;
+    public void PreMatchOnDataPass(int[] teamNum) {
+        teamNum_int[0] = teamNum[0];
+        teamNum_int[1] = teamNum[1];
+        teamNum_int[2] = teamNum[2];
+        System.out.println("Teams are: " + teamNum_int[0] + teamNum_int[1] + teamNum_int[2]);
     }
 
     @Override
-    public void TeleOpOnDataPass(int data) {
-        teleop_int = data;
+    public void TeleOpOnDataPass(int[] teleSpeaker, int[] teleAmp, int[] teleAmpSpeaker) {
+        for (int i = 0; i  <= 2; i++) {
+            this.teleSpeaker[i] = teleSpeaker[i];
+            this.teleAmp[i] = teleAmp[i];
+            this.teleAmpSpeaker[i] = teleAmpSpeaker[i];
+        }
     }
 
     @Override
-    public void AutonOnDataPass(boolean autoLeaveSpot, int autoSpeaker, int autoAmp, int autoGrab) {
+    public void AutonOnDataPass(boolean[] autoLeaveSpot, int[] autoSpeaker, int[] autoAmp, int[] autoGrab) {
         boolLeaveStart = autoLeaveSpot;
         this.autoSpeaker = autoSpeaker;
         this.autoAmp = autoAmp;
         this.autoGrab = autoGrab;
+    }
+
+    @Override
+    public void EndgameOnDataPass(int[] trapDoorNum, int[] climbAmount) {
+        for (int i = 0; i  <= 2; i++) {
+            this.trapDoor[i] = trapDoorNum[i];
+            this.climbAmount[i] = climbAmount[i];
+
+        }
     }
 }
