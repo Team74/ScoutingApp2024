@@ -101,6 +101,36 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void InsertMatch(ContentValues cv, Boolean displayToast)
+    {
+        try {
+            long result; //used to make sure it does not error
+            SQLiteDatabase db = this.getWritableDatabase();
+            Log.d("Hello world", cv.getAsString(COLUMN_AUTOAMP));
+            Log.d("Hello world", cv.getAsString(COLUMN_AUTOSPEAKER));
+            Log.d("Hello world", cv.getAsString(COLUMN_AUTOGRAB));
+            Log.d("Hello world", cv.getAsString(COLUMN_LEAVESTART));
+
+            // if the match ID is less then one (usually -1), then it will add it as a new match
+            result = db.insert(MATCH_TABLE, null, cv);
+
+            //If you want to display the toast, then this handles it. You may not want to display toasts when importing many matches, as it slows it down
+            if (displayToast) {
+                if (result == -1)//failed
+                {
+                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(context, "Badly Failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     //Return a cursor of all of the match data by getting a "blank" query of the table.
     Cursor readAllMatchData()
     {

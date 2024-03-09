@@ -252,7 +252,6 @@ public class Admin extends AppCompatActivity {
             SQLiteDatabase db = myDB.getWritableDatabase();
 
             String[] csvHeaderLine = {
-                    myDB.COLUMN_ID,
                     myDB.COLUMN_TEAMNUM,
                     myDB.COLUMN_LEAVESTART,
                     myDB.COLUMN_AUTOSPEAKER,
@@ -280,7 +279,7 @@ public class Admin extends AppCompatActivity {
             while ((csvLine = reader.readNext()) != null) {
 
                 // check for the CSV header row and skip it
-                if (csvLine[0].equals("_id")) {
+                if (csvLine[0].equals("team_num")) {
                     continue;
                 }
 

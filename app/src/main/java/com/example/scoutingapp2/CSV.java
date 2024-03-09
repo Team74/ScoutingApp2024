@@ -63,7 +63,6 @@ public class CSV {
 
                 // write a header record to the CSV file to aid in importing into Tableau
                 String[] csvHeaderLine = {
-                        myDB.COLUMN_ID,
                         myDB.COLUMN_TEAMNUM,
                         myDB.COLUMN_LEAVESTART,
                         myDB.COLUMN_AUTOSPEAKER,
