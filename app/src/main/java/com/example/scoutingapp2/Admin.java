@@ -290,8 +290,8 @@ public class Admin extends AppCompatActivity {
                     i++;
                 }
 
-                if (   (Integer.parseInt(csvLine[1]) > 0)
-                        && ((Integer.parseInt(csvLine[0]) > 0) && (Integer.parseInt(csvLine[0]) < 200))) {
+                if (   (Integer.parseInt(csvLine[1]) > -1)
+                        && ((Integer.parseInt(csvLine[0]) > 0) && (Integer.parseInt(csvLine[0]) < 10000))) {
                     // ...add the team round data record to the DB
                     db.insert("Match_Data", null, cv);
                 }

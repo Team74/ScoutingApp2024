@@ -32,7 +32,7 @@ public class MatchDataTable extends ScoutingReportActivity {
     //region TeleOp Points and Auton Points strings
     String totalTeleopPoints = "(tele_speaker * 2) + (tele_amp * 1) + (tele_amped_speaker * 5)";
 
-    String totalAutoPoints = "(auto_speaker * 2) + (auto_amp * 1)";
+    String totalAutoPoints = "(leave_start * 1) + (auto_speaker * 2) + (auto_amp * 1)";
     //endregion
 
     public class UpdateMatchDataTable implements ScoutingReportActivity.ReportUpdateCommand {
