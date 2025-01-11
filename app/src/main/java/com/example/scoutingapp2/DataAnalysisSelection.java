@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//This is the screen for the different types of data analysis. Currently, it is just one due to lack of time
+
 public class DataAnalysisSelection extends AppCompatActivity {
 
     Button toMatchData_btn;
@@ -19,6 +21,7 @@ public class DataAnalysisSelection extends AppCompatActivity {
         toMatchData_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //launch the table screen
                 Intent intent = new Intent(DataAnalysisSelection.this, MatchDataTable.class);
                 startActivity(intent);
             }

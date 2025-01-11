@@ -17,6 +17,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.Arrays;
 import java.util.List;
 
+//This the the table section of code for the match data table IIRC. This was made in 2020, before me
+
 public class ScoutingReportActivity extends AppCompatActivity{
 
     // These are used for sorting and filtering report tables

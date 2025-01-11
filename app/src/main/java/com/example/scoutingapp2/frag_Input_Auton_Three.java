@@ -18,6 +18,12 @@ import androidx.fragment.app.Fragment;
  * Use the {@link frag_Input_Auton_Three#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//This is the fragment for the auton section. Think of fragments as screens within a screen.
+//This makes it easier to transfer the data at the end to the table as each part only has to talk to the main screen
+
+//I have not previously worked with fragments, so I kept the boilerplate code in. This can be changed
+
 public class frag_Input_Auton_Three extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -60,10 +66,14 @@ public class frag_Input_Auton_Three extends Fragment implements View.OnClickList
         }
     }
 
+    //Here is where the code really starts
+
     View view;
+    //Get each button, textbox, checkbox
     View pm_Speaker1, pm_Amp1, pm_Grab1, pm_Speaker2, pm_Amp2, pm_Grab2, pm_Speaker3, pm_Amp3, pm_Grab3; //The plus or minus. pm = +-
     TextView tv_Speaker1, tv_Amp1, tv_Grab1, tv_Speaker2, tv_Amp2, tv_Grab2, tv_Speaker3, tv_Amp3, tv_Grab3; //The text views of the +-, tv = textview
     CheckBox cb_leaveStart1, cb_leaveStart2, cb_leaveStart3;
+    //Create the numbers of how much each part was scored
     int[] speakerNum = {0,0,0};
     int[] ampNum = {0,0,0};
     int [] grabNum = {0,0,0};
@@ -75,9 +85,12 @@ public class frag_Input_Auton_Three extends Fragment implements View.OnClickList
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_frag_input_auton_three, container, false);
 
+        //get the team texts
         teamNum_1_txt = view.findViewById(R.id.auton_teamNum1);
         teamNum_2_txt = view.findViewById(R.id.auton_teamNum2);
         teamNum_3_txt = view.findViewById(R.id.auton_teamNum3);
+
+        //Why did I not make a class or smth to make this easier? IIRC I tried but it did not work
 
         //region Team 1
         //Set the pm to the right view. We can then call the children of the view
@@ -86,6 +99,7 @@ public class frag_Input_Auton_Three extends Fragment implements View.OnClickList
         Button minusBtn = pm_Speaker1.findViewById(R.id.minus_button);
         tv_Speaker1 = pm_Speaker1.findViewById(R.id.pre_match_text); //this is the inner text. This is unique as it needs to be called later
         tv_Speaker1.setText(String.valueOf(speakerNum[0]));
+        //on plus button, increment counter
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +107,7 @@ public class frag_Input_Auton_Three extends Fragment implements View.OnClickList
                 tv_Speaker1.setText(String.valueOf(speakerNum[0]));
             }
         });
+        //on plus button, decrement counter
         minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -304,36 +319,23 @@ public class frag_Input_Auton_Three extends Fragment implements View.OnClickList
         return view;
     }
 
-   
+
     @Override
     public void onClick(View v) {
-        /*switch (v.getId()) {
-            case R.id.plus_button:
-                cubesNum ++;
-                textView.setText(String.valueOf(cubesNum));
-                Log.d("HELLO", String.valueOf(cubesNum));
-                break;
-            case R.id.minus_button:
-                cubesNum --;
-                textView.setText(String.valueOf(cubesNum));
-                Log.d("HELLO", String.valueOf(cubesNum));
-                break;
-            case :
-                cubesNum --;
-                textView.setText(String.valueOf(cubesNum));
-                Log.d("HELLO", String.valueOf(cubesNum));
-                break;
-        }*/
+
     }
 
+    //Send the data to the main screen
     public void sendData(){
         passData(boolLeaveStart, speakerNum, ampNum, grabNum);
     }
 
+    //Retrieve data from the main screen
     public void retriveData(ContentValues data){
         speakerNum[0] = data.getAsInteger("data");
     }
 
+    //Constructer for this fragment I think
     public interface AutonOnDataPass {
         public void AutonOnDataPass(boolean[] autoLeaveSpot, int[] autoSpeaker, int[] autoAmp, int[] autoGrab);
     }
@@ -350,6 +352,7 @@ public class frag_Input_Auton_Three extends Fragment implements View.OnClickList
         dataPasser.AutonOnDataPass(autoLeaveSpot, autoSpeaker, autoAmp, autoGrab);
     }
 
+    //Update the team nums
     void updateTeamNums(){
         Input_Three activity = (Input_Three) getActivity();
         int[] teamNums = activity.getTeamNums();

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+//This is a helper function for CSV exporting. I did not make most of this
+
 public class CSV {
 
     private  Context context;
@@ -62,6 +64,7 @@ public class CSV {
                 CSVWriter writer = new CSVWriter(new FileWriter(filePath, false));
 
                 // write a header record to the CSV file to aid in importing into Tableau
+                //UPDATE this to the new table
                 String[] csvHeaderLine = {
                         myDB.COLUMN_TEAMNUM,
                         myDB.COLUMN_LEAVESTART,

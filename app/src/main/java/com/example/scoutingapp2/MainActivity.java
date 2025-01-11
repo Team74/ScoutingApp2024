@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.InputStream;
 import java.net.URL;
 
+//This is the home screen
+
 public class MainActivity extends AppCompatActivity {
 
     Button toInputView_btn, toAdminPassword_btn, toDataAnalysis_btn;

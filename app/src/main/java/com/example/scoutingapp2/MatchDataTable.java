@@ -16,6 +16,9 @@ import android.widget.TableLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+//This is the table function. I did not work on this much last year as we could just use exel.
+// Def look at this and see if you can make it better
+
 public class MatchDataTable extends ScoutingReportActivity {
 
     MyDataBaseHelper myDB;
@@ -37,6 +40,7 @@ public class MatchDataTable extends ScoutingReportActivity {
 
     public class UpdateMatchDataTable implements ScoutingReportActivity.ReportUpdateCommand {
 
+        //UPDATE this to the new game
         public void update(String orderBy, String orderType) {
             // get all the data records from the DB
             String simpleColumns[] = {myDB.COLUMN_TEAMNUM, "Total_Points", "_Auto_Pieces","_Cycles","_teleSpeaker", "_teleAmp"};
@@ -131,6 +135,11 @@ public class MatchDataTable extends ScoutingReportActivity {
                 int radioID = radioGroup.getCheckedRadioButtonId();
                 View radioButton = radioGroup.findViewById(radioID);
                 radioIndex = radioGroup.indexOfChild(radioButton);
+
+                //This would change the select query to get diffent data. By default, it would show only cycles
+                //But it could be used to show other data, and all the data.
+                //As you can tell, it went unused last year as it is still talking about cubes and cones
+
                 /*if(radioIndex == 1) //advance
                 {
                     advData = ", ROUND(" + minMax + "(autoBalance), 2) AS MAX_autoBalance, ROUND(" + minMax + "(teleOpBalance), 2) AS _teleOpBalance, ROUND(" + minMax + "(autoConesTotal), 2) AS _autoConesTotal, " +
@@ -156,6 +165,9 @@ public class MatchDataTable extends ScoutingReportActivity {
             }
         });
 
+        //TODO update this to the new version
+        //In the 2023 version, this would go to a screen that would delist teams to make the table easier to read.
+        //The code for that screen is on GitHub
         delist_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,36 +178,19 @@ public class MatchDataTable extends ScoutingReportActivity {
 
     }
 
-    String[] combine2Strings(String[] array1, String[] array2)
-    {
-        String [] result = new String[array1.length + array2.length];
-        int index = 0;
-
-        for (String item: array1) {
-            if(item != null)
-            {
-                result[index++] = item;
-            }
-        }
-        for (String item: array2) {
-            if(item != null)
-            {
-                result[index++] = item;
-            }
-        }
-        return result;
-    }
-
+    //UPDATE this to the new DB
+    //Would update the simple data text
     void refreshSimpleData()
     {
         //Round(min, max, avg) + "database coloum, digits as table coloum name
         simpleData = " , ROUND("+ minMax + " (" + totalTeleopPoints + "+" + totalAutoPoints + "), 2) AS Total_Points " +
                 " , ROUND("+ minMax + "(auto_speaker + auto_amp), 2) AS _Auto_Pieces " +
                 " , ROUND("+ minMax + "(tele_speaker + tele_amp + tele_amped_speaker), 2) AS _Cycles " +
-                " , ROUND("+ minMax + "(tele_speaker), 2) AS _teleSpeaker " +
+                " , ROUND("+ minMax + "(tele_speaker + tele_amped_speaker), 2) AS _teleSpeaker " +
                 " , ROUND("+ minMax + "(tele_amp), 2) AS _teleAmp ";
 
     }
+    //Unused
     void refreshAdvData()
     {
         /*advData = ", ROUND(" + minMax + "(autoBalance), 2) AS MAX_autoBalance, ROUND(" + minMax + "(teleOpBalance), 2) AS _teleOpBalance, ROUND(" + minMax + "(autoConesTotal), 2) AS _autoConesTotal, " +
@@ -204,6 +199,7 @@ public class MatchDataTable extends ScoutingReportActivity {
 
     }
 
+    //Unused as stated above
     void getDelistIntent()
     {
         String[] delistTeamsArray;

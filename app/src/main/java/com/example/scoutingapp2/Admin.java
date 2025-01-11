@@ -20,38 +20,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 
+//This is the script for the admin functions. This is NOT for the password screen
+//Here you will find a lot of helper functions that work with the database
 
 public class Admin extends AppCompatActivity {
 
+    //Create all of the buttons on the screens
     Button createSampleData_btn, exportCSV_btn, deleteAll_btn, importCSV_btn, test_btn, deleteRow_btn;
 
+    //Class for the pop up text
     AlertDialog dialog;
     AlertDialog.Builder builder;
+
+    //For inporting the CSV file
     CSV csv;
     String baseDir;
     Intent myFileIntent;
     Uri filePath;
     Context context = this;
 
+    //Holds all of the UI for the screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        //Initialize everything
         csv = new CSV(Admin.this);
         baseDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + Environment.DIRECTORY_DOWNLOADS;
         builder = new AlertDialog.Builder(Admin.this);
+
+        //Get all of the buttons
         createSampleData_btn = findViewById(R.id.createSampleData_btn);
         exportCSV_btn = findViewById(R.id.exportCSV_btn);
         deleteAll_btn = findViewById(R.id.deleteAll_btn);
@@ -59,6 +66,7 @@ public class Admin extends AppCompatActivity {
         deleteRow_btn = findViewById(R.id.deleteRow_btn);
         test_btn = findViewById(R.id.test_btn);
 
+        //When a user presses the create sample data button...
         //Creates Sample Data by calling the function from My Database Helper. It overwrites the data so we ask are you sure
         createSampleData_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,21 +78,23 @@ public class Admin extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                       //Get the database
                         MyDataBaseHelper myDB = new MyDataBaseHelper(Admin.this);
-
-                       myDB.createSampleData(); //TODO port the create sample data to the new game
+                        //create the new data
+                       myDB.createSampleData(); //UPDATE The sample data to the new game
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        //do nothing
                     }
                 });
                 builder.show();
             }
         });
 
+        //When the user clicks the export csv button...
         exportCSV_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,8 +112,10 @@ public class Admin extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        //Create the file name
                                         String editTextInput = " " + textBox.getText().toString() + " ";
                                         Log.d("path123","editext value is: "+ editTextInput);
+                                        //Export the Data
                                         csv.exportMatchData(baseDir, editTextInput);
                                     }
                                 })
@@ -115,13 +127,14 @@ public class Admin extends AppCompatActivity {
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        //do nothing
                     }
                 });
                 builder.show();
             }
         });
 
+        //When the user clicks the delete all button...
         deleteAll_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,8 +144,11 @@ public class Admin extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        //Get database
                         MyDataBaseHelper myDB = new MyDataBaseHelper(Admin.this);
+                        //Get the writable version
                         SQLiteDatabase db = myDB.getWritableDatabase();
+                        //Upgrade the database. This will clear it
                         myDB.onUpgrade(db, 0, 0);
                         Toast.makeText(Admin.this, "All Data Deleted", Toast.LENGTH_SHORT).show();
                     }
@@ -140,17 +156,18 @@ public class Admin extends AppCompatActivity {
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        //do nothing
                     }
                 });
                 builder.show();
             }
         });
 
+        //On import button press
         importCSV_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Open the file explorer
                 myFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 myFileIntent.setType("*/*");
                 startActivityForResult(myFileIntent, 10); //dont worry about the error, the tablets are very old
@@ -168,6 +185,7 @@ public class Admin extends AppCompatActivity {
             }
         });
 
+        //Delete Row button
         deleteRow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,16 +204,20 @@ public class Admin extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         try {
+                                            //Convert the text to a int
                                             String editTextInput = textBox.getText().toString().trim();
                                             Log.d("path123", "editext value is: " + editTextInput);
                                             int id = Integer.parseInt(editTextInput);
+                                            //Get the database
                                             MyDataBaseHelper myDB = new MyDataBaseHelper(Admin.this);
                                             SQLiteDatabase wrtDB = myDB.getWritableDatabase();
                                             String[] whereClause = {String.valueOf(id)};
-                                            //wrtDB.delete(myDB.TABLE_NAME, myDB.COLUMN_ID + "=?", whereClause);
+                                            //Delete the row
+                                            wrtDB.delete(myDB.MATCH_TABLE, myDB.COLUMN_ID + "=?", whereClause);
                                             Toast.makeText(Admin.this, "Row " + id + " was Deleted", Toast.LENGTH_SHORT).show();
                                         }catch (NumberFormatException e)
                                         {
+                                            //If it failed
                                             Toast.makeText(Admin.this, "Not a Number", Toast.LENGTH_SHORT).show();
                                             return;
                                         }
@@ -209,7 +231,7 @@ public class Admin extends AppCompatActivity {
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        //do nothing
                     }
                 });
                 builder.show();
@@ -218,6 +240,7 @@ public class Admin extends AppCompatActivity {
 
     }
 
+    //When we get back from the file explorer
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -230,7 +253,8 @@ public class Admin extends AppCompatActivity {
                     if(data != null)
                     {
                         uri = data.getData();
-                        filePath =  uri;//TODO get the true file path, as it crashes rn
+                        filePath =  uri;
+                        //import via the found filepath
                         importCSV(filePath);
                     }
 
@@ -246,11 +270,15 @@ public class Admin extends AppCompatActivity {
     void importCSV(Uri csvFileUri) {
         Context context = this;
 
+        //Massive try catch
         try {
+            //get all of the helper functions
             ContentValues cv = new ContentValues();
             MyDataBaseHelper myDB = new MyDataBaseHelper(this);
             SQLiteDatabase db = myDB.getWritableDatabase();
 
+            //UPDATE This to the new table headers
+            //These will have to be changed to match the table headers
             String[] csvHeaderLine = {
                     myDB.COLUMN_TEAMNUM,
                     myDB.COLUMN_LEAVESTART,
@@ -315,116 +343,4 @@ public class Admin extends AppCompatActivity {
     }
 
 
-    void importCSV2(Uri csvFileUri) throws IOException, CsvValidationException {
-        Context context = this;
-
-        try {
-            ContentValues cv = new ContentValues();
-            MyDataBaseHelper myDB = new MyDataBaseHelper(this);
-            SQLiteDatabase db = myDB.getWritableDatabase();
-
-            // open file and attach a file reader to the uri
-            FileReader fileReader = new FileReader(
-                    this.getContentResolver()
-                            .openFileDescriptor(csvFileUri, "r")
-                            .getFileDescriptor()
-            );
-
-            // now attach a CSV reader to file reader
-            CSVReader reader = new CSVReader(fileReader);
-
-            // create a CSV and DB record that we will fill in
-            //String[] csvLine;
-
-            //fileReader.close();
-            // for each record returned from the CSV file, add a record to DB
-            reader.getLinesRead();
-            List<String[]> fullCSV = reader.readAll();
-
-            int i = 0;
-            while (i < fullCSV.size()) {
-
-                String[] csvLine = fullCSV.get(i++);
-
-                // check for the CSV header row and skip it
-                if (csvLine[0].equals("match_num")) {
-                    continue;
-                }
-
-                Log.d("path123", csvLine[0]);
-               // cv.put(myDB.COLUMN_MATCHNUM, Integer.parseInt(csvLine[0]));
-                Log.d("path123", "3");
-
-                if (   (Integer.parseInt(csvLine[1]) > 0)
-                        && ((Integer.parseInt(csvLine[0]) > 0) && (Integer.parseInt(csvLine[0]) < 200))) {
-                    // ...add the team round data record to the DB
-                    db.insert("Match_Data", null, cv);
-                }
-
-                cv.clear();
-            }
-            reader.close();
-            fileReader.close();
-            this.getContentResolver()
-                    .openFileDescriptor(csvFileUri, "r")
-                    .close();
-            Toast.makeText(context, "Imported CSV", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-            Log.d("path123", String.valueOf(e));
-            e.printStackTrace();
-            // throw new RuntimeException(e);
-
-        } /*catch (CsvValidationException e) {
-            throw new RuntimeException(e);
-        }*/ catch (CsvException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-
-    void oldImportCSV(Uri uriFile)
-    {
-        Context context = this;
-        InputStream inStream = null;
-        try {
-            inStream = getContentResolver().openInputStream(uriFile);;
-            Log.d("path123", "confirm");
-        } catch (IOException e) {
-            Log.d("path123", "error");
-            e.printStackTrace();
-        }
-
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
-        String line = "";
-        MyDataBaseHelper myDB = new MyDataBaseHelper(this);
-        SQLiteDatabase db = myDB.getWritableDatabase();
-        try {
-            boolean skipLine = true;
-            while ((line = buffer.readLine()) != null) {
-                String[] colums = line.split(",");
-                Log.d("path123", String.valueOf(colums.length));
-                if (colums.length != 23) {
-                    Log.d("path123", "Skipping Bad CSV Row");
-                    continue;
-                }
-
-                if(!skipLine) { //TODO do the parse int for all of them.
-                    ContentValues cv = new ContentValues();
-                    //cv.put(myDB.COLUMN_MATCHNUM, Integer.parseInt(colums[0].trim().substring(1,colums[0].length()-1)));
-
-                    db.insert("Match_Data", null, cv);
-                    Log.d("path123", "yes");
-                }else{
-                    skipLine = false;
-                }
-            }
-            Toast.makeText(context, "Imported CSV", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-            Log.d("path123", "no");
-            e.printStackTrace();
-        }
-    }
 }

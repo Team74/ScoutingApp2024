@@ -14,16 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//This is the main file for the database
+//UPDATE
+
 public class MyDataBaseHelper extends SQLiteOpenHelper {
 
     private Context context;
 
+    //These are the headers for the table
     private static final String DATABASE_NAME = "FRC_Scouting.db";
     private static final int VERSION = 1;
     public static final String MATCH_TABLE = "Match_Data";
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_TEAMNUM = "team_num";
+    //UPDATE
     public static final String COLUMN_LEAVESTART = "leave_start";
     public static final String COLUMN_AUTOSPEAKER = "auto_speaker";
     public static final String COLUMN_AUTOAMP = "auto_amp";
@@ -42,6 +47,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
     //creates the table. The syntax is very weird and specific. I suggest to just copy a line and then change it to what you want
     //you can create mutible tables by copy and pasting
+    //UPDATE
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + MATCH_TABLE +
@@ -101,6 +107,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Unused as the function above can do both update and insert
     public void InsertMatch(ContentValues cv, Boolean displayToast)
     {
         try {

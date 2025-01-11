@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+//This is the main screen for the input. It retrives the data from the fragments then uploads it to the db
+
 public class Input_Three extends AppCompatActivity implements frag_Input_TeleOp_Three.TeleOpOnDataPass,
         frag_Input_Auton_Three.AutonOnDataPass, frag_Input_PreMatch_Three.PreMatchOnDataPass, frag_Input_Endgame_Three.EndGameOpOnDataPass {
 
@@ -124,6 +126,7 @@ public class Input_Three extends AppCompatActivity implements frag_Input_TeleOp_
                 autonFragment.sendData();
                 teleopFragment.sendData();
 
+                //UPDATE this to the new DB
                 for (int i = 0; i  <= 2; i++) {
                     ContentValues cv = new ContentValues();
                     cv.put(myDB.COLUMN_TEAMNUM, teamNum_int[i]);
@@ -163,6 +166,8 @@ public class Input_Three extends AppCompatActivity implements frag_Input_TeleOp_
         System.out.println("Teams are: " + teamNum_int[0] + teamNum_int[1] + teamNum_int[2]);
     }
 
+
+    //The reason for this instead of just setting it to zero is that this is more flexible when updating the match
     @Override
     public void TeleOpOnDataPass(int[] teleSpeaker, int[] teleAmp, int[] teleAmpSpeaker) {
         for (int i = 0; i  <= 2; i++) {

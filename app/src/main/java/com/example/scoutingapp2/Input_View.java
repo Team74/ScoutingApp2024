@@ -1,19 +1,22 @@
 package com.example.scoutingapp2;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+
+//This is for the list of the matches
 
 public class Input_View extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class Input_View extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_view);
 
+        //recyclerView is a list type
         recyclerView = findViewById(R.id.recyclerView);
         toOneInput_btn = findViewById(R.id.addOne_btn);
 
@@ -47,6 +51,7 @@ public class Input_View extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(Input_View.this));
 
 
+        //Start the add match screen
         toOneInput_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +77,7 @@ public class Input_View extends AppCompatActivity {
                 auton.add(cursor.getString(2));
                 teleop.add(cursor.getString(3));
             }
-            while(cursor.moveToPrevious()); //TODO make it strings and not ids
+            while(cursor.moveToPrevious());
 
         }
     }
